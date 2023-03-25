@@ -1,4 +1,4 @@
-class Deck {
+class Deck2 {
     private val ranks = listOf("K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A")
     private val suits = listOf("♣", "♦", "♥", "♠")
     var cards = mutableListOf<String>()
@@ -25,8 +25,8 @@ class Deck {
     }
 }
 
-fun main() {
-    val deck = Deck()
+fun main2() {
+    val deck = Deck2()
 
 
     var action = ""

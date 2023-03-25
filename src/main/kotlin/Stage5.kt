@@ -1,4 +1,4 @@
-class Deck {
+class Deck5 {
     private val ranks = listOf("K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A")
     private val suits = listOf("♣", "♦", "♥", "♠")
     private var cards = mutableListOf<String>()
@@ -23,7 +23,7 @@ class Deck {
     }
 }
 
-class Pile {
+class Pile5 {
     var cards = mutableListOf<String>()
     fun score(): Int {
         var score = 0
@@ -38,7 +38,7 @@ class Pile {
     }
 }
 
-fun main() {
+fun main5() {
     println("Indigo Card Game")
     var answer: String
     do {
@@ -46,11 +46,11 @@ fun main() {
         answer = readln()
     } while (answer != "yes" && answer != "no")
 
-    val deck = Deck()
+    val deck = Deck5()
     val player = mutableListOf<String>()
     val computer = mutableListOf<String>()
-    val playerPile = Pile()
-    val computerPile = Pile()
+    val playerPile = Pile5()
+    val computerPile = Pile5()
     val table = mutableListOf<String>()
     var turn = answer == "yes"
     val playedFirst = turn
