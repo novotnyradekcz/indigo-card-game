@@ -57,6 +57,7 @@ fun main5() {
     var scoredLast = turn
     var playerScore: Int
     var computerScore: Int
+
     deck.shuffle()
     for (i in 1..4) table.add(deck.get())
     print("Initial cards on the table:")
@@ -116,6 +117,7 @@ fun main5() {
     )
     if (scoredLast) playerPile.addToPile(table)
     else computerPile.addToPile(table)
+
     playerScore = playerPile.score()
     computerScore = computerPile.score()
     if (playerPile.cards.size == computerPile.cards.size) {
@@ -123,6 +125,7 @@ fun main5() {
         else computerScore += 3
     } else if (playerPile.cards.size > computerPile.cards.size) playerScore += 3
     else computerScore += 3
+
     println("Score: Player $playerScore - Computer $computerScore")
     println("Cards: Player ${playerPile.cards.size} - Computer ${computerPile.cards.size}")
     println("Game Over")
