@@ -23,6 +23,12 @@ class Deck5 {
     }
 }
 
+class Hand5 {
+    var cards = mutableListOf<String>()
+    fun playACard(table: MutableList<String>, card: Int) {
+        table.add(cards.removeAt(card))
+    }
+
 class Pile5 {
     var cards = mutableListOf<String>()
     fun score(): Int {
