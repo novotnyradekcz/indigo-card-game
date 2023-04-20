@@ -28,6 +28,17 @@ class Hand5 {
     fun playACard(table: MutableList<String>, card: Int) {
         table.add(cards.removeAt(card))
     }
+    fun computerPlayACard(table: MutableList<String>) {
+        var card: Int
+        if (cards.size == 1) {
+            card = 0
+            table.add(cards.removeAt(card))
+        }
+
+
+        table.add(cards.removeAt(card))
+    }
+}
 
 class Pile5 {
     var cards = mutableListOf<String>()
@@ -52,11 +63,11 @@ fun main5() {
         answer = readln()
     } while (answer != "yes" && answer != "no")
 
-    val deck = Deck5()
-    val player = mutableListOf<String>()
-    val computer = mutableListOf<String>()
-    val playerPile = Pile5()
-    val computerPile = Pile5()
+    val deck = Deck()
+    val playerHand = Hand()
+    val computerHand = Hand()
+    val playerPile = Pile()
+    val computerPile = Pile()
     val table = mutableListOf<String>()
     var turn = answer == "yes"
     val playedFirst = turn
@@ -70,18 +81,18 @@ fun main5() {
     for (card in table) print(" $card")
     println()
     while (playerPile.cards.size + computerPile.cards.size + table.size < 52) {
-        if (player.size == 0 && computer.size == 0) deck.deal(player, computer)
+        if (playerHand.cards.size == 0 && computerHand.cards.size == 0) deck.deal(playerHand.cards, computerHand.cards)
         println(
             if (table.size == 0) "No cards on the table"
             else "${table.size} cards on the table, and the top card is ${table.last()}"
         )
         if (turn) {
             print("Cards in hand:")
-            for (i in 0 until player.size) print(" ${i + 1})${player[i]}")
+            for (i in 0 until playerHand.cards.size) print(" ${i + 1})${playerHand.cards[i]}")
             println()
             var numCard: Int
             do {
-                println("Choose a card to play (1-${player.size}):")
+                println("Choose a card to play (1-${playerHand.cards.size}):")
                 val inputCard = readln()
                 if (inputCard == "exit") {
                     println("Game Over")
@@ -92,12 +103,10 @@ fun main5() {
                 } catch (e: java.lang.NumberFormatException) {
                     0
                 }
-            } while (numCard !in 1..player.size)
-            table.add(player[numCard - 1])
-            player.removeAt(numCard - 1)
+            } while (numCard !in 1..playerHand.cards.size)
+            playerHand.playACard(table, numCard - 1)
         } else {
-            table.add(computer[0])
-            computer.removeAt(0)
+            computerHand.computerPlayACard(table)
             println("Computer plays ${table.last()}")
         }
         if (table.size > 1 && (table[table.size - 1].first() == table[table.size - 2].first() || table[table.size - 1].last() == table[table.size - 2].last())) {
