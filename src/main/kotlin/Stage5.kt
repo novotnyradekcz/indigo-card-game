@@ -30,11 +30,15 @@ class Hand5 {
     }
     fun computerPlayACard(table: MutableList<String>) {
         var card: Int
+        // just one card in hand:
         if (cards.size == 1) {
             card = 0
             table.add(cards.removeAt(card))
         }
+        // no cards on the table:
+        if (table.size == 0) {
 
+        }
 
         table.add(cards.removeAt(card))
     }
