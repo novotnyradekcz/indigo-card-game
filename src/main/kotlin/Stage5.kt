@@ -39,7 +39,10 @@ class Hand5 {
         if (table.size == 0) {
 
         }
+        // some cards on the table:
+        for (c in cards) {
 
+        }
         table.add(cards.removeAt(card))
     }
 }
