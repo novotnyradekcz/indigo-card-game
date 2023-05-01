@@ -29,6 +29,11 @@ class Hand5 {
         table.add(cards.removeAt(card))
     }
     fun computerPlayACard(table: MutableList<String>) {
+        // print out computer's cards
+        for (i in 0 until cards.size) {
+            print(cards[i])
+            if (i < cards.size - 1) print(" ")
+        }
         var card: Int
         // just one card in hand:
         if (cards.size == 1) {
