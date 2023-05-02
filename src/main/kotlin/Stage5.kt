@@ -1,3 +1,5 @@
+import kotlin.random.Random
+
 class Deck5 {
     private val ranks = listOf("K", "Q", "J", "10", "9", "8", "7", "6", "5", "4", "3", "2", "A")
     private val suits = listOf("♣", "♦", "♥", "♠")
@@ -35,13 +37,35 @@ class Hand5 {
             if (i < cards.size - 1) print(" ")
         }
         var card: Int
+        var candidate = mutableSetOf<Int>()
         // just one card in hand:
         if (cards.size == 1) {
             card = 0
-            table.add(cards.removeAt(card))
-        }
-        // no cards on the table:
-        if (table.size == 0) {
+        } else if (table.size == 0) {  // no cards on the table
+            for (i in 0 until cards.size) { // looking for same suit
+                for (j in 0 until cards.size) {
+                    if (cards[i][1] == cards[j][1] && i != j) {
+                        candidate.addAll(i, j)
+                    }
+                }
+            }
+            if (candidate.size != 0) {
+                card = candidate.toList()[Random.nextInt(candidate.size)]
+            } else {
+                for (i in 0 until cards.size) { // looking for same value
+                    for (j in 0 until cards.size) {
+                        if (cards[i][0] == cards[j][0] && i != j) {
+                            candidate.addAll(i, j)
+                        }
+                    }
+                }
+            }
+            if (candidate.size != 0) {
+                card = candidate.toList()[Random.nextInt(candidate.size)]
+            } else {    // random card from hand
+                card = Random.nextInt(cards.size)
+            }
+        } else {
 
         }
         // some cards on the table:
