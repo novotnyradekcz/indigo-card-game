@@ -31,7 +31,7 @@ class Hand5 {
         table.add(cards.removeAt(card))
     }
     fun computerPlayACard(table: MutableList<String>) {
-        // print out computer's cards
+        // print out computer's cards before playing
         for (i in 0 until cards.size) {
             print(cards[i])
             if (i < cards.size - 1) print(" ")
