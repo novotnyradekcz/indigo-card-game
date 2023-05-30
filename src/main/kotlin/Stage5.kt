@@ -36,16 +36,17 @@ class Hand5 {
             print(cards[i])
             if (i < cards.size - 1) print(" ")
         }
+        println()
         var card: Int
         var candidate = mutableSetOf<Int>()
-        // just one card in hand:
-        if (cards.size == 1) {
+        if (cards.size == 1) {  // just one card in hand
             card = 0
         } else if (table.size == 0) {  // no cards on the table
             for (i in 0 until cards.size) { // looking for same suit
                 for (j in 0 until cards.size) {
                     if (cards[i][1] == cards[j][1] && i != j) {
-                        candidate.addAll(i, j)
+                        candidate.add(i)
+                        candidate.add(j)
                     }
                 }
             }
@@ -55,7 +56,8 @@ class Hand5 {
                 for (i in 0 until cards.size) { // looking for same value
                     for (j in 0 until cards.size) {
                         if (cards[i][0] == cards[j][0] && i != j) {
-                            candidate.addAll(i, j)
+                            candidate.add(i)
+                            candidate.add(j)
                         }
                     }
                 }
@@ -67,10 +69,64 @@ class Hand5 {
             }
         } else { // some cards on the table:
             for (c in cards) {
-
+                for (i in 0..1) {
+                    if (c[i] == table.last()[i]) {
+                        candidate.add(cards.indexOf(c))
+                    }
+                }
+            }
+            if (candidate.size == 0) {
+                for (i in 0 until cards.size) { // looking for same suit
+                    for (j in 0 until cards.size) {
+                        if (cards[i][1] == cards[j][1] && i != j) {
+                            candidate.add(i)
+                            candidate.add(j)
+                        }
+                    }
+                }
+                if (candidate.size != 0) {
+                    card = candidate.toList()[Random.nextInt(candidate.size)]
+                } else {
+                    for (i in 0 until cards.size) { // looking for same value
+                        for (j in 0 until cards.size) {
+                            if (cards[i][0] == cards[j][0] && i != j) {
+                                candidate.add(i)
+                                candidate.add(j)
+                            }
+                        }
+                    }
+                }
+                if (candidate.size != 0) {
+                    card = candidate.toList()[Random.nextInt(candidate.size)]
+                } else {    // random card from hand
+                    card = Random.nextInt(cards.size)
+                }
+            } else if (candidate.size == 1) {   // just one candidate card
+                card = candidate.first()
+            } else {    // more than one candidate cards
+                var doubleCandidate = mutableSetOf<Int>()
+                for (c in candidate) {  // seeing if there are 2 or more candidates with the same suit
+                    if (cards[c][1] == table.last()[1]) {
+                        doubleCandidate.add(c)
+                    }
+                }
+                if (doubleCandidate.size > 1) {
+                    card = doubleCandidate.toList()[Random.nextInt(doubleCandidate.size)]
+                } else {
+                    doubleCandidate.clear()
+                    for (c in candidate) {  // seeing if there are 2 or more candidates with the same value
+                        if (cards[c][0] == table.last()[0]) {
+                            doubleCandidate.add(c)
+                        }
+                    }
+                    if (doubleCandidate.size > 1) {
+                        card = doubleCandidate.toList()[Random.nextInt(doubleCandidate.size)]
+                    } else {    // random candidate card
+                        card = candidate.toList()[Random.nextInt(candidate.size)]
+                    }
+                }
             }
         }
-
 
         table.add(cards.removeAt(card))
     }
@@ -99,11 +155,11 @@ fun main5() {
         answer = readln()
     } while (answer != "yes" && answer != "no")
 
-    val deck = Deck()
-    val playerHand = Hand()
-    val computerHand = Hand()
-    val playerPile = Pile()
-    val computerPile = Pile()
+    val deck = Deck5()
+    val playerHand = Hand5()
+    val computerHand = Hand5()
+    val playerPile = Pile5()
+    val computerPile = Pile5()
     val table = mutableListOf<String>()
     var turn = answer == "yes"
     val playedFirst = turn
